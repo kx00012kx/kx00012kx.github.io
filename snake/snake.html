@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+canvas{
+	display: block;
+	background: red;
+	margin:20px auto;
+	border-radius: 20px;
+}
+</style>
+<meta charset="utf-8">
+	<title>snake</title>
+</head>
+<body>
+<canvas width=1200 height=600>
+	<span>当前浏览器不支持,请更换chrome或firefox</span>
+</canvas>
+</body>
+<script type="text/javascript">
+var cvs=document.getElementsByTagName('canvas')[0];
+var oc=cvs.getContext('2d');
+
+window.onload=function(){
+	var snake=new Snakes();	
+	snake.init();
+	document.onclick=function(){
+		clearInterval(snake.tm);
+	}
+}
+
+function Snakes(){	
+	this.body=[];
+	this.nt=0;
+	this.tm=null;
+
+	this.area=[];
+	for(var i=0;i<cvs.height/40;i++){		
+		for(var j=0;j<cvs.width/40;j++){
+			var posi={};					
+			posi.left=j*40+20;
+			posi.top=i*40+20;
+			this.area.push(posi);
+		}
+	}
+
+	this.space=[];
+	for (var i=0;i<this.area.length;i++){
+		this.space[i]=this.area[i];
+	}
+
+	this.leftWall=[];
+	this.rightWall=[];
+	for(var i=0;i<cvs.height/40;i++){
+		this.leftWall.push(this.space[i*cvs.width/40]);
+		this.rightWall.push(this.space[i*cvs.width/40+29]);
+	}
+}
+
+Snakes.prototype.init=function(){
+	var that=this;
+	for(var i=0;i<5;i++){
+		this.body[i]=this.area.splice(0,1)[0];
+	}
+	this.addfood();
+	this.draw();
+	document.onkeydown=function(e){
+		e=e||event;
+		if(37<=e.keyCode&&e.keyCode<=40){
+			return false;
+		}
+	}
+	document.onkeyup=function(e){
+		console.time(1);
+		e=e||event;
+		var key=e.keyCode;
+		if(that.nt==-1&&e.keyCode==39||that.nt==1&&e.keyCode==37||that.nt==30&&e.keyCode==38||that.nt==-30&&e.keyCode==40){
+			return;
+		}
+		that.dir(key);			
+	}	
+}
+
+Snakes.prototype.addfood=function(){
+	var ranm=Math.floor(Math.random()*this.area.length);
+	this.food=this.area[ranm];
+	console.log(this.food,this.area.length,ranm);
+}
+
+Snakes.prototype.dir=function(key){
+	switch(key){
+		case 37:
+			this.nt=-1;
+			this.engine();
+		break;
+		case 38:
+			this.nt=-30;
+			this.engine();
+		break;
+		case 39:
+			this.nt=1;
+			this.engine();
+		break;
+		case 40:
+			this.nt=30;
+			this.engine();
+		break;
+	}	
+}
+
+Snakes.prototype.engine=function(){
+	var that=this;
+	clearInterval(this.tm);
+	this.tm=setInterval(function(){
+		that.forward();
+	},150)
+}
+
+Snakes.prototype.eat=function(){
+	var next=this.getNext();	
+	if(this.food.left===next.left&&this.food.top===next.top){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+Snakes.prototype.forward=function(){
+	var NEXT=this.getNext();
+	if(NEXT==undefined||this.body.indexOf(NEXT)!==-1){
+		clearInterval(this.tm);
+		alert('you die!');
+		return;
+	}
+	if(this.leftWall.indexOf(this.body[this.body.length-1])!=-1&&this.nt==-1){
+		clearInterval(this.tm);
+		alert('you die!');
+		return;
+	}
+	if(this.rightWall.indexOf(this.body[this.body.length-1])!=-1&&this.nt==1){
+		clearInterval(this.tm);
+		alert('you die!');
+		return;
+	}
+	if(this.eat()){
+		this.body.push(NEXT);
+		this.area.splice(this.area.indexOf(NEXT),1)
+		this.addfood();
+	}else{
+		this.area.push(this.body[0]);
+		this.area.splice(this.area.indexOf(NEXT),1)
+		this.body.push(NEXT);
+		this.body.shift();		
+	}	
+	this.draw();	
+}
+
+Snakes.prototype.draw=function(){
+	oc.clearRect(0,0,cvs.width,cvs.height);
+
+	oc.beginPath();
+	oc.arc(this.food.left,this.food.top,15,0,2*Math.PI,true);
+	oc.fillStyle='green';
+	oc.fill();
+	oc.closePath();	
+
+	for(var i=0;i<this.body.length;i++){
+		oc.beginPath();
+		oc.arc(this.body[i].left,this.body[i].top,20,0,2*Math.PI,true);
+		oc.fillStyle='blue';
+		oc.fill();
+		oc.closePath();
+	}
+	console.timeEnd(1);
+}
+
+Snakes.prototype.getNext=function(){
+	return this.space[this.space.indexOf(this.body[this.body.length-1])+this.nt];
+}
+</script>
+</html>
