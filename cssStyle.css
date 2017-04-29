@@ -399,11 +399,11 @@ body{
 	content: '';
 	display: block;
 	width:1px;
-	background: #ccc;
+	background: #aaa;
 	
 	position: absolute;
-	top:18%;
-	bottom:25%;
+	top:0%;
+	bottom:0%;
 	left:100%;
 } 
 .project{
