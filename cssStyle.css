@@ -365,7 +365,8 @@ body{
 	overflow: hidden;
 	border:solid 2px #fff;
 	margin:0 auto;
-	background: url(img/s1.jpg) no-repeat top left/cover;
+	display: block;
+	
 }
 .pic:hover{
 	box-shadow: 0 0 10px 5px #fff;
@@ -373,15 +374,11 @@ body{
 .snake-2{
 	left:33.33%;
 }
-.snake-2 .pic{
-	background: url(img/s2.jpg) no-repeat top left/cover;
-}
+
 .snake-3{
 	left:66.66%;
 }
-.snake-3 .pic{
-	background: url(img/s3.jpg) no-repeat top left/cover;
-}
+
 
 /* 小程序 */
 
