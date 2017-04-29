@@ -177,10 +177,9 @@ body{
 }
 
 /* 山 */
-.mountain div{
+.mountain img{
 	width:100%;
-	height: 150px;
-	background: url(img/mount.png)repeat-x left bottom/50% 90%;
+	display: block;
 	position: fixed;
 	bottom:0;
 	z-index: 90;
@@ -319,21 +318,14 @@ body{
 	color:#f2ab13;
 }
 .icon{
+	display: block;
 	width:100px;
 	height:100px;
 	position: absolute;
-	 left:50%;
-	 top:-120px;
-	 transform:translate(-50%,0%);
-	background: url(img/icon-1.png) no-repeat top left/cover;
+	left:50%;
+	top:-120px;
+	transform:translate(-50%,0%);
 }
-.icon-1{
-	background: url(img/icon-2.png) no-repeat top left/cover;
-}
-.icon-3{
-	background: url(img/icon-3.png) no-repeat top left/cover;
-}
-
 
 /* snake */
 .snake{
@@ -444,11 +436,12 @@ body{
 	margin:0 auto;
 	display: block;
 }
-.resume p{
+.resume span{
 	text-align: center;
 	font-size: 20px;
 	color:#fff;
 	font-weight: bold;
+	display: block;
 }
 .page3 h1{
 	color:#fff;
