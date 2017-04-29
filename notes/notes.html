@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>笔记</title>
+<style type="text/css">
+div{
+	width:100%;
+}
+img{
+	width:100%;
+	display: block;
+}
+h1{
+	text-align: center;
+	width:100%;
+}
+ul{
+	margin:0px;
+	padding: 0px;
+	list-style: none;
+	position: fixed;
+	left:50%;
+	bottom:0;
+	transform: translate(-50%,0);
+	min-width:900px;
+	border-radius:10px 10px 0 0;
+	border:1px solid #ccc;
+	background: #fff;
+	text-align: center;
+}
+li{
+	height:30px;
+	padding:0 15px;
+	display: inline-block;
+	border-right:1px solid #ccc;
+	line-height: 30px;
+}
+li:last-child{
+	border: none;
+}
+.active{
+	background: #f06;
+}
+</style>
+</head>
+<body>
+	<ul>
+		<li class="active">html5</li><li>css3</li><li>javascript</li><li>ajax</li><li>bootstrap</li><li>sass</li><li>canvas</li><li>svg</li><li>RegExp</li><li>小程序</li><li>github</li>
+	</ul>
+	<div class="box"></div>
+</body>
+<script type="text/javascript">
+var pic_src={
+		html5:[
+			{title:'HTML5笔记',src:'images/html5/HTML5.png'},
+			{title:null,src:'images/html5/HTML5-2.png'}
+		],
+
+		css3:[	
+			{title:'CSS3笔记',src:'images/css/css3-1.png'},
+			{title:null,src:'images/css/css3-2.png'},
+			{title:'CSS3小技巧',src:'images/css/CSS3-tips.png'},
+			{title:'BFC布局',src:'images/css/BFC.png'},
+			{title:'CSS3 HACK',src:'images/css/CSS-HACK.png'}				
+		],
+
+		javascript:[
+			{title:'JAVASCRIPT笔记',src:'images/js/js-basic.png'},
+			{title:null,src:'images/js/js-this.png'},
+			{title:null,src:'images/js/js-dom-bom.png'},
+			{title:null,src:'images/js/js-event.png'},
+			{title:null,src:'images/js/js-anime.png'},
+			{title:null,src:'images/js/js-obj.png'},								
+			{title:'客户端的JAVASCRIPT',src:'images/js/client-js.png'},
+			{title:'JAVASCRIPT子集与扩展',src:'images/js/js-extend.png'}
+		],
+
+		ajax:[
+			{title:'ajax笔记',src:'images/ajax.png'}
+		],
+
+		bootstrap:[ 
+			{title:'BOOTSTRAP笔记',src:'images/bootstrap/bootstrap.png'},
+			{title:null,src:'images/bootstrap/bootstrap2.png'},
+			{title:null,src:'images/bootstrap/bootstrap3.png'},
+		],
+
+		sass:[
+			{title:'Sass笔记',src:'images/sass.png'}
+		],
+
+		canvas:[
+			{title:'canvas笔记',src:'images/canvas.png'}
+		],
+
+		svg:[
+			{title:'SVG笔记',src:'images/svg/svg-1.png'},
+			{title:null,src:'images/svg/svg-2.png'},
+			{title:null,src:'images/svg/svg-3.png'}
+		],
+
+		RegExp:[
+			{title:'js正则笔记',src:'images/regexp.png'}
+		],
+
+		github:[
+			{title:'github使用指南',src:'images/github.jpg'}
+		],
+
+		小程序:[
+			{title:'小程序笔记',src:'images/little.png'}
+		]
+	}
+window.onload=function(){
+	var oLi=document.getElementsByTagName('li');
+	var oBox=document.querySelector('.box');
+
+	function init(){
+		for(var i=0;i<pic_src.html5.length;i++){
+			if(pic_src.html5[i].title){
+				var h1=document.createElement('h1');
+				h1.innerHTML=pic_src.html5[i].title;
+				oBox.appendChild(h1);
+			}
+			
+			var img=document.createElement('img');
+			img.src=pic_src.html5[i].src;
+			oBox.appendChild(img);
+		}
+	}
+	init();
+
+	for(var i=0;i<oLi.length;i++){
+		oLi[i].onmousedown=function(){
+			for(var obj in pic_src){
+				if(this.innerHTML==obj){
+					for(var j=0;j<oLi.length;j++){
+						oLi[j].className='';
+					}
+					this.className='active';
+				}
+				oBox.innerHTML='';
+				for(var k=0;k<pic_src[this.innerHTML].length;k++){
+					if(pic_src[this.innerHTML][k].title){
+						var h1=document.createElement('h1');
+						h1.innerHTML=pic_src[this.innerHTML][k].title;
+						oBox.appendChild(h1);
+					}
+					
+					var img=document.createElement('img');
+					img.src=pic_src[this.innerHTML][k].src;
+					oBox.appendChild(img);
+				}
+			}
+		}
+	}
+}
+</script>
+</html>
