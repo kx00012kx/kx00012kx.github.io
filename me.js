@@ -8,6 +8,7 @@ window.onload=function(){
 
 	var oHead=document.querySelector('.head');
 	var oCard=document.querySelector('.card');
+	var oWait=document.querySelector('.wait');
 
 	var oBack=document.querySelectorAll('.back');
 	var oList=document.querySelectorAll('.list');
@@ -30,6 +31,8 @@ window.onload=function(){
 	var inputTxt=document.querySelector('.inputTxt');
 	var line=document.querySelector('.line');
 
+	
+
 	function init(){		//初始化页面;
 		var str=inputTxt.innerHTML;
 		inputTxt.innerHTML='';
@@ -41,7 +44,7 @@ window.onload=function(){
 		for(var i=2;i<oPage.length;i++){
 			oPage[i].togo=1;		//设置通行id,用来还原flag值
 		}
-
+		oWait.style.display='none';
 		//开场动画;
 		startMove(oCir,{'width':maxSide*1.2,'height':maxSide*1.2},800,'easeOut',function(){		//圆扩大;	
 			oPage[0].style.display='block';	
